@@ -12,7 +12,7 @@ class MovieSpider(scrapy.Spider):
 		for url in urls:
 			yield scrapy.Request(url=response.urljoin(url),callback=self.parse_movie)
 
-		nextpg = response.css('div.desc > a::attr(href)').extract_first()
+		nextpg = response.css('div.desc > a::attr(href)').extract()[-1]
 		if nextpg:
 			nextpg = response.urljoin(nextpg)
 			yield scrapy.Request(url=nextpg,callback=self.parse)
